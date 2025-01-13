@@ -1,0 +1,11 @@
+.env
+environments/
+.vscode/launch.json
+
+*.log
+*.png
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+.env
