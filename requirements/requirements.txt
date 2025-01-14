@@ -1,5 +1,6 @@
 datasets
-Pillow
-numpy
-PyYAML
 ultralytics
+requests
+pyyaml
+torch
+torchvision
