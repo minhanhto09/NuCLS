@@ -27,19 +27,13 @@ size_categories:
     - [Data Splits](#data-splits)
 4. [Usage Examples](#usage-examples)
 5. [Licensing](#licensing)
-6. [Limitations](#limitations)
+6. [References](#references)
 
 
 ## Overview
 
 
 The [comprehensive dataset](https://sites.google.com/view/nucls/home?authuser=0) comprises over 220,000 labeled nuclei from breast cancer images sourced from [TCGA](https://www.cancer.gov/ccg/research/genome-sequencing/tcga), making it one of the largest datasets for nucleus detection, classification, and segmentation in hematoxylin and eosin-stained digital slides of breast cancer. This extensive labeling effort is the result of a collaboration among pathologists, pathology residents, and medical students, who utilized the Digital Slide Archive for annotation. The dataset serves multiple purposes, including the development and validation of algorithms for nuclear detection, classification, and segmentation. It is also valuable for conducting interrater analysis research. The dataset encompasses annotations from both single-rater and multi-rater evaluations, with this specific collection containing approximately 59,500 labeled nuclei from the corrected single-rater subset.
-
-This [repository](https://github.com/PathologyDataScience/BCSS) contains the necessary information about the dataset associated with the following papers:
-
-- Amgad, Mohamed, et al. "Structured Crowdsourcing Enables Convolutional Segmentation of Histology Images." Bioinformatics, vol. 35, no. 18, 2019, pp. 3461-3467, https://doi.org/10.1093/bioinformatics/btz083. Accessed 18 Mar. 2024.
-
-- Amgad, Mohamed, et al. "NuCLS: A Scalable Crowdsourcing Approach and Dataset for Nucleus Classification and Segmentation in Breast Cancer." GigaScience, vol. 11, 2022, https://doi.org/10.1093/gigascience/giac037. Accessed 18 Mar. 2024.
 
 ![](https://huggingface.co/datasets/minhanhto09/NuCLS_dataset/resolve/main/Images/fig1.PNG)
 
@@ -73,7 +67,7 @@ The Corrected Single-Rater Dataset is a collection of 1,744 entries, each with a
 
 A single dataset entry contains the following details:
 
-- 'file_name': A unique filename that encodes the most relevant information about each example and its associated data.
+- `file_name`: A unique filename that encodes the most relevant information about each example and its associated data.
 ![](https://huggingface.co/datasets/minhanhto09/NuCLS_dataset/resolve/main/Images/fig2.png)
 
 - `rgb_image`: A high-resolution RGB image of breast cancer tissue.
@@ -102,38 +96,15 @@ A single dataset entry contains the following details:
 
 ### Data Split
 
-
-The dataset is divided into six folds, each with its own training and testing set. This division is based on the source hospital to capture the variability in medical imaging practices and ensure that models trained on the dataset can generalize well across different institutions.
-
-The dataset is divided into the following folds:
-
-- `train_fold_1`: 1,481 examples
-- `test_fold_1`: 263 examples
-
-- `train_fold_2`: 1,239 examples
-- `test_fold_2`: 505 examples
-
-- `train_fold_3`: 1,339 examples
-- `test_fold_3`: 405 examples
-
-- `train_fold_4`: 1,450 examples
-- `test_fold_4`: 294 examples
-
-- `train_fold_5`: 1,467 examples
-- `test_fold_5`: 277 examples
-
-- `train_fold_999`: 21 examples
-- `test_fold_999`: 7 examples
-
-Note that the debug configuration utilizes these particular folds `train_fold_999` and `test_fold_999` due to their smaller numbers of examples.
+The dataset is divided into six folds, each with its own training and testing set. This division is based on the source hospital to capture variability in medical imaging practices and ensure that models trained on the dataset can generalize well across different institutions. Smaller folds, such as `train_fold_999` and `test_fold_999`, are used specifically for debugging due to their limited number of examples.
 
 ## Usage Example
 
 ### Introduction
 
-Our objective is to detect and localize nuclei in images with high accuracy and efficiency. This task has important applications in medical imaging, particularly in cancer diagnosis, where identifying and analyzing nuclei can aid in understanding tumor morphology and guiding treatment decisions.
+This repository focuses on the task of detecting nuclei in images with high accuracy and efficiency. This task has significant applications in medical imaging, particularly in cancer diagnosis, where identifying and analyzing nuclei is crucial for understanding tumor morphology and guiding treatment decisions.
 
-To achieve this, we employ **YOLOv8**, a convolutional neural network (CNN) designed for real-time object detection. YOLOv8 was chosen for its ability to balance speed and accuracy, as well as its effectiveness in detecting small and overlapping objects like nuclei.
+To achieve this, we conducted a comprehensive review of various object detection models, including **Mask R-CNN**, **Faster R-CNN**, and **YOLOv5**, evaluating their suitability for nuclei detection. While Mask R-CNN excels at instance segmentation and Faster R-CNN offers robust detection, we selected **YOLOv8** for its superior balance of speed and accuracy, as well as its ability to effectively detect small and overlapping objects like nuclei in real-time.
 
 ### Model Architecture
 
@@ -145,17 +116,28 @@ The YOLO (You Only Look Once) architecture is a single-stage object detection fr
 
 ![](images/image1.png) 
 
-YOLOv8 simplifies detection with anchor-free predictions and uses advanced loss functions, including IoU loss for box accuracy and cross-entropy loss for classification. Its streamlined design and multi-scale feature fusion make it highly effective for detecting small, overlapping objects like nuclei.
+YOLOv8 simplifies detection with anchor-free predictions and uses advanced loss functions, including IoU loss for box accuracy and cross-entropy loss for classification.
 
-In this project, we leveraged YOLOv8’s capabilities to process 1,744 images with 59,373 annotated nuclei, ensuring high efficiency and scalability during both training and inference. The architecture’s flexibility and speed make it a robust choice for medical imaging tasks such as nuclei detection.
+In this project, we leveraged YOLOv8’s capabilities to process 1,744 images with 59,373 annotated nuclei, ensuring high efficiency and scalability during both training and inference. 
 
-### Results and Analysis
+### Results
 
 ![](images/image2.png) 
 
-The YOLOv8 model achieved an overall mAP@0.5 of 56.6% and mAP@0.5-0.95 of 29.2%, demonstrating moderate detection performance across five classes. 
+The YOLOv8 model achieved an overall mAP@0.5 of 56.6% and mAP@0.5-0.95 of 29.2%, demonstrating moderate detection performance across five classes.
 
-While the model performed well for classes like AMBIGUOUS (mAP@0.5: 81.6%) and other_nucleus (mAP@0.5: 82.2%), it struggled with nonTIL_stromal (mAP@0.5: 26.9%) and TIL (mAP@0.5: 32.4%), indicating room for improvement in detecting smaller or less-represented classes. The model's efficient inference speed (10.1 ms per image) highlights its potential for real-time applications.
+- Strengths: The model performed well for AMBIGUOUS (mAP@0.5: 81.6%) and other_nucleus (mAP@0.5: 82.2%), showing its ability to handle overlapping and challenging objects. Its efficient inference speed (10.1 ms per image) highlights its potential for real-time applications.
+
+- Weaknesses: Performance was lower for nonTIL_stromal (mAP@0.5: 26.9%) and TIL (mAP@0.5: 32.4%). 
+
+### Discussion
+
+Upon further investigation, one major challenge is the presence of *multiple visually similar nuclei within a single image*, which makes differentiation difficult. Additionally, *class imbalance* in the training data likely contributed to the lower performance for these underrepresented categories.
+
+To address these challenges, future improvements could include data augmentation to enhance diversity, weighted loss functions to prioritize minority classes, and synthetic data generation to balance the dataset.
+
+Currently, the dataset comprises exclusively the corrected single-rater data. Subsequent releases should expand to incorporate both the uncorrected single-rater and multi-rater datasets.
+
 
 ## Licensing
 
@@ -163,7 +145,14 @@ While the model performed well for classes like AMBIGUOUS (mAP@0.5: 81.6%) and o
 The dataset is licensed by a [CC0 1.0 license](https://www.google.com/url?q=https%3A%2F%2Fcreativecommons.org%2Fpublicdomain%2Fzero%2F1.0%2F&sa=D&sntz=1&usg=AOvVaw3eAeYgtS7qVsCxTZd1Vltr).
 
 
-## Limitations
+## References
 
+This [repository](https://github.com/PathologyDataScience/BCSS) contains the necessary information about the dataset associated with the following papers:
 
-Currently, the dataset comprises exclusively the corrected single-rater data. Subsequent releases should expand to incorporate both the uncorrected single-rater and multi-rater datasets.
+- Amgad, Mohamed, et al. "Structured Crowdsourcing Enables Convolutional Segmentation of Histology Images." Bioinformatics, vol. 35, no. 18, 2019, pp. 3461-3467, https://doi.org/10.1093/bioinformatics/btz083. Accessed 18 Mar. 2024.
+
+- Amgad, Mohamed, et al. "NuCLS: A Scalable Crowdsourcing Approach and Dataset for Nucleus Classification and Segmentation in Breast Cancer." GigaScience, vol. 11, 2022, https://doi.org/10.1093/gigascience/giac037. Accessed 18 Mar. 2024.
+
+Model References
+
+- The official YOLOv8 GitHub repository: [https://github.com/ultralytics/ultralytics](https://github.com/ultralytics/ultralytics).
