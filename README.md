@@ -32,8 +32,7 @@ size_categories:
 
 ## Overview
 
-
-The [comprehensive dataset](https://sites.google.com/view/nucls/home?authuser=0) comprises over 220,000 labeled nuclei from breast cancer images sourced from [TCGA](https://www.cancer.gov/ccg/research/genome-sequencing/tcga), making it one of the largest datasets for nucleus detection, classification, and segmentation in hematoxylin and eosin-stained digital slides of breast cancer. This extensive labeling effort is the result of a collaboration among pathologists, pathology residents, and medical students, who utilized the Digital Slide Archive for annotation. The dataset serves multiple purposes, including the development and validation of algorithms for nuclear detection, classification, and segmentation. It is also valuable for conducting interrater analysis research. The dataset encompasses annotations from both single-rater and multi-rater evaluations, with this specific collection containing approximately 59,500 labeled nuclei from the corrected single-rater subset.
+The [comprehensive dataset](https://sites.google.com/view/nucls/home?authuser=0) includes over 220,000 labeled nuclei from hematoxylin and eosin-stained breast cancer slides, making it one of the largest datasets for nucleus detection. This extensive collection, annotated by pathologists and medical trainees, supports nuclear detection, classification, segmentation, and interrater analysis research. For this work, we used a subset of approximately 59,500 labeled nuclei from the corrected single-rater data.
 
 ![](https://huggingface.co/datasets/minhanhto09/NuCLS_dataset/resolve/main/Images/fig1.PNG)
 
@@ -55,15 +54,13 @@ To see a smaller subset of the dataset:
 from datasets import load_dataset
 dataset = load_dataset("minhanhto09/NuCLS_dataset", name="debug")
 ```
-For detailed usage instructions, please refer to [this documentation](https://colab.research.google.com/drive/1d5gEliz8IH06k52OWNWTVDejjKRRqW97?usp=sharing).
-
 
 ## Dataset Structure
 
 
 ### Data Schema
 
-The Corrected Single-Rater Dataset is a collection of 1,744 entries, each with an associated Field of View (FOV) image, mask image, visualization image, and a list of nuclei annotation coordinates, comprising 1,744 complete sets. In total, there are 59,485 nuclei annotations. Each image is rendered at a resolution of 0.2 microns-per-pixel, with all annotation coordinates provided in pixel units to correspond with this resolution.
+The [Corrected Single-Rater Dataset](https://sites.google.com/view/nucls/single-rater?authuser=0) is a collection of 1,744 entries, each with an associated Field of View (FOV) image, mask image, visualization image, and a list of nuclei annotation coordinates, comprising 1,744 complete sets. In total, there are 59,485 nuclei annotations. Each image is rendered at a resolution of 0.2 microns-per-pixel, with all annotation coordinates provided in pixel units to correspond with this resolution.
 
 A single dataset entry contains the following details:
 
