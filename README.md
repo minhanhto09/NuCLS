@@ -77,13 +77,13 @@ A single dataset entry contains the following details:
 
 - `annotation_coordinates`: Each instance comprises a list of annotations for the nuclei, with each annotation encompassing:
 
-    - `raw_classification`: The base category of the nucleus, with 13 classes such as 'tumor' or 'lymphocyte'.
+    - `raw_classification`: The base category of the nucleus (13 classes such as 'tumor' or 'lymphocyte').
     
-    - `main_classification`: A higher-level category of the nucleus, with 7 classes including 'tumor_mitotic' and 'nonTILnonMQ_stromal'.
+    - `main_classification`: A higher-level category of the nucleus(7 classes including 'tumor_mitotic' and 'nonTILnonMQ_stromal').
     
-    - `super_classification`: The broadest category label for the nucleus, with 4 options including 'sTIL' or 'nonTIL_stromal'.
+    - `super_classification`: The broadest category label for the nucleus (4 options including 'sTIL' or 'nonTIL_stromal').
     
-    - `type`: The form of annotation used, either 'rectangle' or 'polyline'.
+    - `type`: The form of annotation used ('rectangle' or 'polyline').
     
     - `xmin`, `ymin`, `xmax`, `ymax`: The bounding box coordinates indicating the extent of the nucleus.
     
