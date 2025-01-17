@@ -143,7 +143,7 @@ The YOLO (You Only Look Once) architecture is a single-stage object detection fr
 - Neck (FPN): Combines multi-scale feature maps from the backbone to detect objects of varying sizes, which is crucial for identifying small nuclei.
 - Head: Predicts bounding boxes, confidence scores, and class probabilities using regression and classification layers.
 
-![](images/image.png)
+![](images/image1.png) 
 
 YOLOv8 simplifies detection with anchor-free predictions and uses advanced loss functions, including IoU loss for box accuracy and cross-entropy loss for classification. Its streamlined design and multi-scale feature fusion make it highly effective for detecting small, overlapping objects like nuclei.
 
@@ -151,7 +151,11 @@ In this project, we leveraged YOLOv8’s capabilities to process 1,744 images wi
 
 ### Results and Analysis
 
-The YOLOv8 model achieved an overall mAP@0.5 of 56.6% and mAP@0.5-0.95 of 29.2%, demonstrating moderate detection performance across five classes. While the model performed well for classes like AMBIGUOUS (mAP@0.5: 81.6%) and other_nucleus (mAP@0.5: 82.2%), it struggled with nonTIL_stromal (mAP@0.5: 26.9%) and TIL (mAP@0.5: 32.4%), indicating room for improvement in detecting smaller or less-represented classes. The model's efficient inference speed (10.1 ms per image) highlights its potential for real-time applications.
+![](images/image2.png) 
+
+The YOLOv8 model achieved an overall mAP@0.5 of 56.6% and mAP@0.5-0.95 of 29.2%, demonstrating moderate detection performance across five classes. 
+
+While the model performed well for classes like AMBIGUOUS (mAP@0.5: 81.6%) and other_nucleus (mAP@0.5: 82.2%), it struggled with nonTIL_stromal (mAP@0.5: 26.9%) and TIL (mAP@0.5: 32.4%), indicating room for improvement in detecting smaller or less-represented classes. The model's efficient inference speed (10.1 ms per image) highlights its potential for real-time applications.
 
 ## Licensing
 
