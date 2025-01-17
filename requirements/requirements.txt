@@ -4,3 +4,8 @@ requests
 pyyaml
 torch
 torchvision
+pandas
+numpy
+Pillow
+seaborn
+matplotlib

@@ -32,7 +32,7 @@ size_categories:
 
 ## Overview
 
-The [comprehensive dataset](https://sites.google.com/view/nucls/home?authuser=0) includes over 220,000 labeled nuclei from hematoxylin and eosin-stained breast cancer slides, making it one of the largest datasets for nucleus detection. This extensive collection, annotated by pathologists and medical trainees, supports nuclear detection, classification, segmentation, and interrater analysis research. For this work, we used a subset of approximately 59,500 labeled nuclei from the corrected single-rater data.
+The [comprehensive dataset](https://sites.google.com/view/nucls/home?authuser=0) includes over 220,000 labeled nuclei from breast cancer slides, making it one of the largest datasets for nucleus detection. This extensive collection, annotated by pathologists and medical trainees, supports nuclear detection, classification, segmentation, and interrater analysis research. For this work, I used a subset of approximately 59,500 labeled nuclei from the corrected single-rater data.
 
 ![](https://huggingface.co/datasets/minhanhto09/NuCLS_dataset/resolve/main/Images/fig1.PNG)
 
@@ -62,6 +62,8 @@ dataset = load_dataset("minhanhto09/NuCLS_dataset", name="debug")
 
 The [Corrected Single-Rater Dataset](https://sites.google.com/view/nucls/single-rater?authuser=0) is a collection of 1,744 entries, each with an associated Field of View (FOV) image, mask image, visualization image, and a list of nuclei annotation coordinates, comprising 1,744 complete sets. In total, there are 59,485 nuclei annotations. Each image is rendered at a resolution of 0.2 microns-per-pixel, with all annotation coordinates provided in pixel units to correspond with this resolution.
 
+![](https://huggingface.co/datasets/minhanhto09/NuCLS_dataset/resolve/main/Images/fig3.jpeg)
+
 A single dataset entry contains the following details:
 
 - `file_name`: A unique filename that encodes the most relevant information about each example and its associated data.
@@ -69,15 +71,13 @@ A single dataset entry contains the following details:
 
 - `rgb_image`: A high-resolution RGB image of breast cancer tissue.
 
-- `mask_image`: A mask image with each nucleus labeled. Class labels are encoded in the first channel. The second and third channels are used to create a unique identifier for each nucleus. The field of view (gray area) is marked to delineate the annotated region.
-
-  [This file](hhttps://drive.google.com/file/d/1vT6ZG1s3IQkB9suI21qgzF2N5zM8z0qd/view?usp=sharing) contains the nucleus label encoding, including a special 'fov' code encoding the intended annotation region.
+- `mask_image`: A mask image with each nucleus labeled. Class labels are encoded in the first channel. The second and third channels are used to create a unique identifier for each nucleus. 
 
 - `visualization_image`: A visualization image that overlays the RGB and mask images to assist in interpretability.
 
 - `annotation_coordinates`: Each instance comprises a list of annotations for the nuclei, with each annotation encompassing:
 
-    - `raw_classification`: The base category of the nucleus, with 13 possible classes such as 'tumor' or 'lymphocyte'.
+    - `raw_classification`: The base category of the nucleus, with 13 classes such as 'tumor' or 'lymphocyte'.
     
     - `main_classification`: A higher-level category of the nucleus, with 7 classes including 'tumor_mitotic' and 'nonTILnonMQ_stromal'.
     
@@ -89,8 +89,6 @@ A single dataset entry contains the following details:
     
     - `coords_x`, `coords_y`: The specific boundary coordinates of the nucleus.
 
-![](https://huggingface.co/datasets/minhanhto09/NuCLS_dataset/resolve/main/Images/fig3.jpeg)
-
 ### Data Split
 
 The dataset is divided into six folds, each with its own training and testing set. This division is based on the source hospital to capture variability in medical imaging practices and ensure that models trained on the dataset can generalize well across different institutions. Smaller folds, such as `train_fold_999` and `test_fold_999`, are used specifically for debugging due to their limited number of examples.
@@ -101,7 +99,7 @@ The dataset is divided into six folds, each with its own training and testing se
 
 This repository focuses on the task of detecting nuclei in images with high accuracy and efficiency. This task has significant applications in medical imaging, particularly in cancer diagnosis, where identifying and analyzing nuclei is crucial for understanding tumor morphology and guiding treatment decisions.
 
-To achieve this, we conducted a comprehensive review of various object detection models, including **Mask R-CNN**, **Faster R-CNN**, and **YOLOv5**, evaluating their suitability for nuclei detection. While Mask R-CNN excels at instance segmentation and Faster R-CNN offers robust detection, we selected **YOLOv8** for its superior balance of speed and accuracy, as well as its ability to effectively detect small and overlapping objects like nuclei in real-time.
+To achieve this, I conducted a comprehensive review of various object detection models, including **Mask R-CNN**, **Faster R-CNN**, and **YOLOv5**, evaluating their suitability for nuclei detection. While Mask R-CNN excels at instance segmentation and Faster R-CNN offers robust detection, I selected **YOLOv8** for its superior balance of speed and accuracy, as well as its ability to effectively detect small and overlapping objects like nuclei in real-time.
 
 ### Model Architecture
 
@@ -115,7 +113,7 @@ The YOLO (You Only Look Once) architecture is a single-stage object detection fr
 
 YOLOv8 simplifies detection with anchor-free predictions and uses advanced loss functions, including IoU loss for box accuracy and cross-entropy loss for classification.
 
-In this project, we leveraged YOLOv8’s capabilities to process 1,744 images with 59,373 annotated nuclei, ensuring high efficiency and scalability during both training and inference. 
+In this project, I leveraged YOLOv8’s capabilities to process 1,744 images with 59,373 annotated nuclei, ensuring high efficiency and scalability during both training and inference. 
 
 ### Results
 
