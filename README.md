@@ -129,6 +129,29 @@ Note that the debug configuration utilizes these particular folds `train_fold_99
 
 ## Usage Example
 
+### Introduction
+
+Our objective is to detect and localize nuclei in images with high accuracy and efficiency. This task has important applications in medical imaging, particularly in cancer diagnosis, where identifying and analyzing nuclei can aid in understanding tumor morphology and guiding treatment decisions.
+
+To achieve this, we employ **YOLOv8**, a convolutional neural network (CNN) designed for real-time object detection. YOLOv8 was chosen for its ability to balance speed and accuracy, as well as its effectiveness in detecting small and overlapping objects like nuclei.
+
+### Model Architecture
+
+The YOLO (You Only Look Once) architecture is a single-stage object detection framework with three main components:
+
+- Backbone: Extracts image features using convolutional layers, capturing both fine and coarse details.
+- Neck (FPN): Combines multi-scale feature maps from the backbone to detect objects of varying sizes, which is crucial for identifying small nuclei.
+- Head: Predicts bounding boxes, confidence scores, and class probabilities using regression and classification layers.
+
+![](images/image.png)
+
+YOLOv8 simplifies detection with anchor-free predictions and uses advanced loss functions, including IoU loss for box accuracy and cross-entropy loss for classification. Its streamlined design and multi-scale feature fusion make it highly effective for detecting small, overlapping objects like nuclei.
+
+In this project, we leveraged YOLOv8’s capabilities to process 1,744 images with 59,373 annotated nuclei, ensuring high efficiency and scalability during both training and inference. The architecture’s flexibility and speed make it a robust choice for medical imaging tasks such as nuclei detection.
+
+### Results and Analysis
+
+The YOLOv8 model achieved an overall mAP@0.5 of 56.6% and mAP@0.5-0.95 of 29.2%, demonstrating moderate detection performance across five classes. While the model performed well for classes like AMBIGUOUS (mAP@0.5: 81.6%) and other_nucleus (mAP@0.5: 82.2%), it struggled with nonTIL_stromal (mAP@0.5: 26.9%) and TIL (mAP@0.5: 32.4%), indicating room for improvement in detecting smaller or less-represented classes. The model's efficient inference speed (10.1 ms per image) highlights its potential for real-time applications.
 
 ## Licensing
 
